@@ -19,6 +19,10 @@ func LoadConfig() (*Config, error) {
 	if err := v.BindEnv("PORT"); err != nil {
 		return nil, err
 	}
+	if err := v.Unmarshal(&config); err != nil {
+		return nil, err
+	}
 
 	return config, nil
+
 }
