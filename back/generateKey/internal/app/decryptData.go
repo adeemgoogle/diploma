@@ -5,7 +5,9 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"crypto/x509"
+	"encoding/hex"
 	"encoding/pem"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 )
@@ -23,8 +25,9 @@ func (s *Server) DecryptData(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).SendString("Ошибка чтения запроса")
 	}
 
+	data, err := hex.DecodeString(req.Data)
 	// Получение данных для расшифровки
-	requestData := []byte(req.Data)
+	requestData := []byte(data)
 
 	// Получение закрытого ключа и декодирование его из PEM
 	privateKeyPEM := []byte(req.PrivateKey)
@@ -40,8 +43,9 @@ func (s *Server) DecryptData(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).SendString("Ошибка парсинга закрытого ключа")
 	}
 
+	label := []byte("")
 	// Расшифрование данных с использованием закрытого ключа
-	decryptedData, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, privateKey, requestData, nil)
+	decryptedData, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, privateKey, requestData, label)
 	if err != nil {
 		log.Error("Ошибка расшифровки данных:", err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Ошибка расшифровки данных")

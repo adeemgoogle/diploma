@@ -6,6 +6,8 @@ import (
 	"crypto/sha256"
 	"crypto/x509"
 	"encoding/pem"
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 )
@@ -39,12 +41,13 @@ func (s *Server) EncryptData(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).SendString("Ошибка парсинга публичного ключа")
 	}
 
+	label := []byte("")
 	// Шифрование данных с использованием открытого ключа
-	encryptedData, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, publicKey, requestData, nil)
+	encryptedData, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, publicKey, requestData, label)
 	if err != nil {
 		log.Error("Ошибка шифрования данных:", err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Ошибка шифрования данных")
 	}
 
-	return c.JSON(fiber.Map{"encrypted_data": encryptedData})
+	return c.JSON(fiber.Map{"encrypted_data": fmt.Sprintf("%x", encryptedData)})
 }
