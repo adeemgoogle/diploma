@@ -3,25 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diploma</title>
+    <title>PKI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        textarea {
+            width: calc(100% - 40px);
+            height: 200px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+    </style>
 </head>
 <body>
-    <p1>This is our <b>Diploma project</b></p1>
-    <div class="form_auth_block">
-        <div class="form_auth_block_content">
-          <p class="form_auth_block_head_text">Authorization</p>
-          <form class="form_auth_style" action="#" method="post">
-            <label>Enter your email</label>
-              <label>
-                  <input type="email" name="auth_email" placeholder="email" required >
-              </label>
-              <label>Enter your key</label>
-              <label>
-                  <input type="password" name="auth_pass" placeholder="Введите пароль" required >
-              </label>
-              <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
-          </form>
-        </div>
-      </div>
+<div class="container">
+    <h1>PKI</h1>
+    <button class="button" onclick="generateKeys()">Generate Keys</button>
+    <button class="button" onclick="encrypt()">Encrypt</button>
+    <button class="button" onclick="decrypt()">Decrypt</button>
+    <textarea id="output" readonly></textarea>
+
+    <h2>Manage Certificates</h2>
+    <button class="button" onclick="viewCertificates()">View Certificates</button>
+    <button class="button" onclick="addCertificate()">Add Certificate</button>
+    <button class="button" onclick="deleteCertificate()">Delete Certificate</button>
+</div>
+
+<script>
+    function generateKeys() {
+        // Логика генерации ключей
+        document.getElementById("output").value = "Keys generated";
+    }
+
+    function encrypt() {
+        // Логика шифрования
+        document.getElementById("output").value = "Encryption performed";
+    }
+
+    function decrypt() {
+        // Логика расшифровки
+        document.getElementById("output").value = "Decryption performed";
+    }
+
+    function viewCertificates() {
+        // Логика просмотра сертификатов
+        document.getElementById("output").value = "Viewing certificates";
+    }
+
+    function addCertificate() {
+        // Логика добавления сертификата
+        document.getElementById("output").value = "Adding certificate";
+    }
+
+    function deleteCertificate() {
+        // Логика удаления сертификата
+        document.getElementById("output").value = "Deleting certificate";
+    }
+</script>
 </body>
 </html>

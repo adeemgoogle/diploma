@@ -18,17 +18,12 @@ type EncryptRequest struct {
 }
 
 func (s *Server) EncryptData(c *fiber.Ctx) error {
-	// Прочитать тело запроса в структуру EncryptRequest
 	var req EncryptRequest
 	if err := c.BodyParser(&req); err != nil {
 		log.Error("Ошибка чтения запроса:", err)
 		return c.Status(fiber.StatusBadRequest).SendString("Ошибка чтения запроса")
 	}
-
-	// Получение данных для шифрования
 	requestData := []byte(req.Data)
-
-	// Получение публичного ключа и декодирование его из PEM
 	publicKeyPEM := []byte(req.PublicKey)
 	block, _ := pem.Decode(publicKeyPEM)
 	if block == nil {
@@ -42,7 +37,6 @@ func (s *Server) EncryptData(c *fiber.Ctx) error {
 	}
 
 	label := []byte("")
-	// Шифрование данных с использованием открытого ключа
 	encryptedData, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, publicKey, requestData, label)
 	if err != nil {
 		log.Error("Ошибка шифрования данных:", err)

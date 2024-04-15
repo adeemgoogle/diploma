@@ -2,6 +2,7 @@ package app
 
 import (
 	"diploma/pkg/config"
+	"diploma/pkg/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/hashicorp/go-hclog"
@@ -13,6 +14,7 @@ type Server struct {
 }
 
 func Start(conf *config.Config) error {
+	database.InitDB()
 	s := new(Server)
 	s.App = fiber.New(fiber.Config{
 		BodyLimit: 20 * 1024 * 1024,

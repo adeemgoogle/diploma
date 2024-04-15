@@ -5,6 +5,8 @@ go 1.18
 require (
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/hashicorp/go-hclog v1.2.0
+	github.com/jmoiron/sqlx v1.3.5
+	github.com/lib/pq v1.2.0
 	github.com/spf13/viper v1.15.0
 )
 
